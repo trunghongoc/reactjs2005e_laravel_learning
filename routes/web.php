@@ -60,3 +60,9 @@ Route::prefix('admin')->group(function () {
 // Route::post('/about', function () {
 //     return 'method post của about';
 // });
+
+
+Route::get('/users', 'UserController@index');
+Route::get('/users/{id}', 'UserController@show')->where(['id' => '\d+']);
+Route::view('/users/new', 'users.new');
+Route::post('/users/create', 'UserController@create');
