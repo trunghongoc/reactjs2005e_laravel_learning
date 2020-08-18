@@ -25,11 +25,15 @@ class UserController extends Controller
     }
 
     public function create(UserCreateRequest $request) {
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make('123456')
-        ]);
+        // $user = User::create([
+        //     'name' => $request->input('name'),
+        //     'email' => $request->input('email'),
+        //     'password' => Hash::make('123456')
+        // ]);
+        $avatar = $request->file('avatar');
+        $fileName = $avatar->getClientOriginalName();
+        $avatar->move('test-imgs', $fileName);
+
         return redirect('/users');
     }
 }

@@ -6,7 +6,7 @@
     <title>Theme moiws user</title>
 </head>
 <body>
-    <form action="/users/create" method="POST">
+    <form action="/users/create" method="POST" enctype="multipart/form-data">
         @csrf
         <p>Name:</p>
         <input type="text" name="name">
@@ -19,6 +19,9 @@
         @if($errors->has('email'))
             <div class="error">{{ $errors->first('email') }}</div>
         @endif
+
+        <p>Avatar:</p>
+        <input type="file" name="avatar">
 
         <input type="submit" value="submit"/>
     </form>

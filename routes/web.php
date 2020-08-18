@@ -17,9 +17,10 @@ use App\Post;
 use App\User;
 
 Route::get('/', function () {
-    $users = User::paginate(1);
-    return response()->json($users);
+    // $users = User::paginate(1);
+    // return response()->json($users);
     // return view('welcome');
+    return view('testBlade');
 });
 
 Route::get('/test', function() {
