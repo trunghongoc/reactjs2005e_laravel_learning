@@ -15,23 +15,34 @@ use Illuminate\Support\Facades\Route;
 
 use App\Post;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/', function () {
     // $users = User::paginate(1);
     // return response()->json($users);
     // return view('welcome');
+    $user = Auth::user();
+
+    $right = Hash::check('123', $user->password);
+    dd($right);
+
+    dd($user);
+    return response()->json($user);
     return view('testBlade');
 });
 
 Route::get('/test', function() {
-    $students = [
-        ['id' => 6, 'name' => 'Nguyễn Văn A'],
-        ['id' => 9, 'name' => 'Phạm Văn B'],
-    ];
-    return view('testAbc', [
-        'students' => $students
-    ]);
-});
+    // $students = [
+    //     ['id' => 6, 'name' => 'Nguyễn Văn A'],
+    //     ['id' => 9, 'name' => 'Phạm Văn B'],
+    // ];
+    // return view('testAbc', [
+    //     'students' => $students
+    // ]);
+    return '123';
+
+})->middleware('myJWT');
 
 Route::get('/json', function() {
     $users = User::with('posts')->get();
@@ -67,3 +78,6 @@ Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show')->where(['id' => '\d+']);
 Route::view('/users/new', 'users.new');
 Route::post('/users/create', 'UserController@create');
+
+Route::view('/login', 'login')->name('login');
+Route::post('/login', 'AuthController@login');
